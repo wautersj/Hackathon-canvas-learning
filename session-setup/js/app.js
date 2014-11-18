@@ -106,15 +106,16 @@ function updateObjects(){for (var i = objects.length - 1; i >= 0; i--) {
 }
 
 function drawObjects(){
+	//draw part 1 of dual effect screen
+	_CONTEXT.clearRect(0, 0, window.innerWidth/2, window.innerHeight);
+
+	//draw part 2 of dual effect screen
+	_CONTEXT.globalAlpha = 0.045;
+	_CONTEXT.fillStyle = '#000000';
+    _CONTEXT.fillRect(0,0,window.innerWidth,window.innerHeight);
+    _CONTEXT.globalAlpha = 1;
+
 	if(objects.length){
-		_CONTEXT.clearRect(0, 0, window.innerWidth/2, window.innerHeight);
-
-		_CONTEXT.globalAlpha = 0.045;
-		_CONTEXT.fillStyle = '#000000';
-	    _CONTEXT.fillRect(0,0,window.innerWidth,window.innerHeight);
-	    _CONTEXT.globalAlpha = 1;
-
-
 		for (var i = 0; i < objects.length; i++) {
 			var obj = objects[i];
 
