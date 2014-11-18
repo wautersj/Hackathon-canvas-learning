@@ -8,7 +8,7 @@ var objects;
 
 function init() {
 	//Caching, initializing some objects.
-	_FPS = 30 ;
+	_FPS = 60 ;
 	_CANVAS = document.getElementById('myCanvas');
 	_CONTEXT = _CANVAS.getContext("2d");
 
@@ -107,7 +107,13 @@ function updateObjects(){for (var i = objects.length - 1; i >= 0; i--) {
 
 function drawObjects(){
 	if(objects.length){
-		_CONTEXT.clearRect(0, 0, window.innerWidth, window.innerHeight);
+		_CONTEXT.clearRect(0, 0, window.innerWidth/2, window.innerHeight);
+
+		_CONTEXT.globalAlpha = 0.045;
+		_CONTEXT.fillStyle = '#000000';
+	    _CONTEXT.fillRect(0,0,window.innerWidth,window.innerHeight);
+	    _CONTEXT.globalAlpha = 1;
+
 
 		for (var i = 0; i < objects.length; i++) {
 			var obj = objects[i];
