@@ -19,7 +19,7 @@ html, body, canvas {
 }
 
 canvas {
-	background: #DCDCDC;
+	background: #000000;
 }
 
 h1 {
@@ -32,6 +32,7 @@ h1 {
 	top: 20px;
 	text-align: center;
 	font-weight: 600;
+	color: white;
 }
 
 h1 span {
