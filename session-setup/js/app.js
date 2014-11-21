@@ -61,8 +61,8 @@ function createBall(){
 	for (var e = emitters.length - 1; e >= 0; e--) {
 		var emitter = emitters[e];
 
-		for (var i = 3; i > 0; i--) {
-			var weight = 7 + Math.round(Math.random()*15);
+		for (var i = 4; i > 0; i--) {
+			var weight = 7 + Math.round(Math.random()*	15);
 			var ball =  {
 				x: emitter.x,
 				y: emitter.y,
