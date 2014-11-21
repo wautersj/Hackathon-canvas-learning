@@ -109,8 +109,10 @@ function addInteractivity(){
 }
 
 function addEnemey(){
+	var xOnGrid = Math.round((window.innerWidth/enemyGraphic.img.width)*Math.random())*enemyGraphic.img.width;
+
 	var newEnemy = {
-		x: 100 + Math.round(Math.random()*(window.innerWidth-200)),
+		x: xOnGrid,
 		y: 20,
 
 		directionX: 0,
@@ -226,7 +228,7 @@ function drawObjects(){
 
 			_CONTEXT.drawImage(eGraphic.img, 
 				0, 0, eGraphic.img.width, eGraphic.img.height,
-				enemy.x - (eGraphic.img.width/2), enemy.y, eGraphic.img.width, eGraphic.img.height
+				enemy.x, enemy.y, eGraphic.img.width, eGraphic.img.height
 			);
 		};
 	}
