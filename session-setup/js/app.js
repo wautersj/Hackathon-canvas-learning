@@ -12,10 +12,12 @@ var playerGraphic;
 var enemyGraphic;
 
 var canShoot = true;
+var points = 0;
+var lives = 3;
 
 function init() {
 	//Caching, initializing some objects.
-	_FPS = 8;
+	_FPS = 15;
 	_CANVAS = document.getElementById('myCanvas');
 	_CONTEXT = _CANVAS.getContext("2d");
 
@@ -138,11 +140,15 @@ function playerShoot(){
 			height: 16
 		}
 
+		_CONTEXT.globalAlpha = 0.2;
+		_CONTEXT.fillStyle = '#FFFFFF';
+    	_CONTEXT.fillRect(0,0,window.innerWidth,window.innerHeight);
+
 		bullets.push(newBullet);
 
 		setTimeout(function(){
 			canShoot = true;
-		},500);
+		},250);
 	}
 }
 
@@ -184,7 +190,17 @@ function updateObjects(){
 				if(doCollide(bullet,e)){
 					//ASSIGNMENT
 					//Remove from lists bullets and enemys
-				}
+					console.log('hit');
+
+					var bIndex = bullets.indexOf(bullet);
+					bullets.splice(bIndex,1);
+
+					var eIndex = enemys.indexOf(e);
+					enemys.splice(eIndex,1);
+
+					points ++;
+					document.getElementById('points').innerText = points + ' Hits';
+				}	
 			};
 		}
 	}
@@ -196,21 +212,38 @@ function updateEnemys(){
 			var enemy = enemys[i];
 			enemy.y += enemyGraphic.img.height;
 
-			if(enemy.y > player.y-playerGraphic.img.height){
-				//alert('Game Over!');
-				window.location = window.location.href;
+			if(enemy.y > player.y-playerGraphic.img.height-enemyGraphic.img.height){
+				var eIndex = enemys.indexOf(enemy);
+				enemys.splice(eIndex,1);
+
+				lives--;
+				document.getElementById('lives').innerText = lives + ' Lives';
+
+				if(lives==0){
+					window.location = window.location.href;
+				}
 			}
 		}
 	}
 }
 
 function doCollide(bullet, enemy){
-	//ASSIGNMENT
-	return false;
+	if(bullet.x>enemy.x && bullet.x<enemy.x + (enemyGraphic.img.width - bullet.width) &&
+		bullet.y < (enemy.y+enemyGraphic.img.height)){
+		return true	;
+	} else {
+		return false;
+	}
 }
 
 function drawObjects(){
-	_CONTEXT.clearRect( 0, 0, _CANVAS.width, _CANVAS.height);
+	//_CONTEXT.clearRect( 0, 0, _CANVAS.width, _CANVAS.height);
+
+	//draw part 2 of dual effect screen
+	_CONTEXT.globalAlpha = 0.6;
+	_CONTEXT.fillStyle = '#000000';
+    _CONTEXT.fillRect(0,0,window.innerWidth,window.innerHeight);
+    _CONTEXT.globalAlpha = 1;
 
 	if(player){
 		var pGraphic = playerGraphic;
@@ -238,7 +271,7 @@ function drawObjects(){
 			var bullet = bullets[i];
 
 			_CONTEXT.fillStyle="#FF0000";
-			_CONTEXT.fillRect(bullet.x - (bullet.width/2),bullet.y - (bullet.height/2),bullet.width,bullet.height);
+			_CONTEXT.fillRect(bullet.x,bullet.y,bullet.width,bullet.height);
 		};
 	}
 }
